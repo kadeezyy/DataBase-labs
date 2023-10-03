@@ -1,89 +1,97 @@
--- Create the ENUM type
-CREATE TYPE s341474.profession_type AS ENUM ('scientist', 'researcher', 'pilot');
+-- Drop the tables if they exist
+DROP TABLE IF EXISTS signal cascade;
+DROP TABLE IF EXISTS planet cascade;
+DROP TABLE IF EXISTS television_camera cascade;
+DROP TABLE IF EXISTS antenna cascade;
+DROP TABLE IF EXISTS remote_control CASCADE;
+DROP TABLE IF EXISTS screen cascade;
+DROP TABLE IF EXISTS person cascade;
+DROP table if exists sending_signal_to_antenna;
+DROP type if exists antenna_type;
+DROP table if exists show_on_screen_from_antenna;
+DROP table if exists person_watches_screen;
 
--- Create the person table with a foreign key reference to profession_type
-CREATE TABLE s341474.person
+
+-- Drop the ENUM types if they exist
+DROP TYPE IF EXISTS antenna_size;
+DROP TYPE IF EXISTS profession_type;
+
+-- Create the ENUM type if it doesn't exist
+CREATE TYPE profession_type AS ENUM ('scientist', 'researcher', 'pilot');
+
+-- Create the person table if it doesn't exist with a foreign key reference to profession_type
+CREATE TABLE IF NOT EXISTS person
 (
     id         SERIAL PRIMARY KEY,
     name       VARCHAR(32),
-    profession s341474.profession_type
+    profession profession_type
 );
 
--- Create the screen table
-CREATE TABLE s341474.screen
+
+create table remote_control
 (
-    screen_id                SERIAL PRIMARY KEY,
-    connected_remote_control INT REFERENCES s341474.remoteControl (remote_control_id)
+    id                  serial primary key
+--     connected_screen_id int references screen (id)
 );
 
--- Create the remoteControl table
-CREATE TABLE s341474.remoteControl
+
+create table screen
 (
-    remote_control_id SERIAL PRIMARY KEY
+    id                       serial primary key,
+    connected_remote_control int references remote_control (id)
 );
+
+create table person_watches_screen
+(
+    id                 SERIAL primary key,
+    watching_person_id int references person (id),
+    screen_id          int references screen (id)
+);
+
+create table television_camera
+(
+    id               serial primary key,
+    text_description text
+);
+
+create table planet
+(
+    id           serial primary key,
+    name         varchar(32),
+    is_populated boolean
+);
+
 
 -- Create the ENUM type
-CREATE TYPE s341474.antenna_size AS ENUM ('big', 'medium', 'small');
+CREATE TYPE antenna_size AS ENUM ('big', 'medium', 'small');
 
--- Create the antenna table with a foreign key reference to antenna_size
-CREATE TABLE s341474.antenna
+create table antenna
 (
-    antenna_id   SERIAL PRIMARY KEY,
-    antenna_type VARCHAR(255),
-    size         s341474.antenna_size
+    id           serial primary key,
+    antenna_type varchar(255),
+    size         antenna_size
 );
 
--- Create the televisionCamera table
-CREATE TABLE s341474.televisionCamera
+
+create table signal
 (
-    television_camera_id SERIAL PRIMARY KEY,
-    text_description     TEXT
+    id                 serial primary key,
+    signal_text        text,
+    is_received        boolean,
+    directed_to_planet int references planet (id),
+    sent_via_antenna   int references antenna (id)
 );
 
--- Create the planet table
-CREATE TABLE s341474.planet
+create table sending_signal_to_antenna
 (
-    planet_id    SERIAL PRIMARY KEY,
-    name         VARCHAR(255),
-    is_populated BOOLEAN
+    id             serial primary key,
+    with_signal_id int references signal (id),
+    via_antenna_id int references antenna (id)
 );
 
--- Create the signal table with foreign key references
-CREATE TABLE s341474.signal
+create table show_on_screen_from_antenna
 (
-    signal_id            SERIAL PRIMARY KEY,
-    signal_text          TEXT,
-    is_received          BOOLEAN,
-    directed_to_planet   INT REFERENCES s341474.planet (planet_id),
-    directed_via_antenna INT REFERENCES s341474.antenna (antenna_id)
+    id              serial primary key,
+    to_screen_id    int references screen (id),
+    from_antenna_id int references antenna (id)
 );
-
--- Create a table to represent actions
-CREATE TABLE s341474.action
-(
-    action_id   SERIAL PRIMARY KEY,
-    action_type VARCHAR(255),
-    description TEXT
-);
-
--- Create a table to represent relationships between actions and objects
-CREATE TABLE s341474.action_object
-(
-    action_object_id SERIAL PRIMARY KEY,
-    action_id        INT REFERENCES s341474.action (action_id),
-    subject_id       INT,
-    object_id        INT
-);
-
--- Insert data for actions and descriptions
-INSERT INTO s341474.action (action_type, description)
-VALUES ('Observing', 'Bowman and Poole were observing the screen.'),
-       ('Transmitting', 'The long-focus television camera was transmitting images to the remote control.'),
-       ('Orienting', 'The parabolic antenna was orienting itself precisely towards Earth.'),
-       ('Sending Signals', 'Signals were being sent in both directions using the antennas.'),
-       ('Receiving Signals', 'Signals were being received by the antennas.'),
-       ('Traveling', 'The signals traveled through space.'),
-       ('Potentially Receiving',
-        'The signals, if ever received, would be received by Earth, possibly centuries later.'),
-       ('Non-Reception', 'If not received, the signals would continue into the vast emptiness of space.');
-

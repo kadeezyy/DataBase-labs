@@ -1,69 +1,189 @@
--- Insert data into the person table
-INSERT INTO s341474.person (name, profession)
-VALUES
-    ('Bowman', 'scientist'),
-    ('Poole', 'researcher');
+-- Вставка данных в таблицу "person"
+INSERT INTO person (name, profession)
+VALUES ('Боумен', 'scientist'),
+       ('Пул', 'scientist');
 
--- Insert data into the remoteControl table (assuming there is one remote control)
-INSERT INTO s341474.remoteControl (remote_control_id)
+-- Вставка данных в таблицу "remote_control"
+INSERT INTO remote_control
+    DEFAULT
+VALUES;
+
+-- Вставка данных в таблицу "screen"
+INSERT INTO screen (connected_remote_control)
 VALUES (1);
+-- Предположим, что экран связан с удаленным управлением с id=1
 
--- Insert data into the screen table (assuming there is one screen connected to the remote control)
-INSERT INTO s341474.screen (connected_remote_control)
-VALUES (1);
+-- Вставка данных в таблицу "person_watches_screen"
+INSERT INTO person_watches_screen (watching_person_id, screen_id)
+VALUES (1, 1);
+-- Предположим, что человек с id=1 наблюдает экран с id=1
 
--- Insert data into the antenna table
-INSERT INTO s341474.antenna (antenna_type, size)
-VALUES ('Parabolic Antenna', 'big');
+-- Вставка данных в таблицу "television_camera"
+INSERT INTO television_camera (text_description)
+VALUES ('Длиннофокусная телевизионная камера на антенне');
 
--- Insert data into the televisionCamera table
-INSERT INTO s341474.televisionCamera (text_description)
-VALUES ('Long-focus television camera on a parabolic antenna.');
+-- Вставка данных в таблицу "planet"
+INSERT INTO planet (name, is_populated)
+VALUES ('Земля', true),
+       ('Марс', false);
 
--- Insert data into the planet table
-INSERT INTO s341474.planet (name, is_populated)
-VALUES ('Earth', TRUE);
+-- Вставка данных в таблицу "antenna"
+INSERT INTO antenna (antenna_type, size)
+VALUES ('параболическая', 'big');
 
--- Insert data into the signal table (assuming one signal)
-INSERT INTO s341474.signal (signal_text, is_received, directed_to_planet, directed_via_antenna)
-VALUES ('Signal description here', FALSE, 1, 1);
+-- Вставка данных в таблицу "signal"
+INSERT INTO signal (signal_text, is_received, directed_to_planet, sent_via_antenna)
+VALUES ('Пример сигнала 1', false, 1, 1), -- Предположим, что сигнал отправлен на Землю через антенну с id=1
+       ('Пример сигнала 2', true, 2, 1);
+-- Предположим, что сигнал успешно принят с антенны с id=1
 
--- Insert data into the action_object table to represent the action of observing
--- Connect Bowman (person) observing the screen
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (1, 1, 1);
+-- Вставка данных в таблицу "sending_signal_to_antenna"
+INSERT INTO sending_signal_to_antenna (with_signal_id, via_antenna_id)
+VALUES (1, 1), -- Связываем сигнал с id=1 с антенной с id=1
+       (2, 1);
+-- Связываем сигнал с id=2 с антенной с id=1
 
--- Insert data into the action_object table to represent the action of transmitting
--- Connect television camera transmitting to the remote control
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (2, 5, 1);
+-- Вставка данных в таблицу "show_on_screen_from_antenna"
+INSERT INTO show_on_screen_from_antenna (to_screen_id, from_antenna_id)
+VALUES (1, 1);
+-- Связываем экран с id=1 с антенной с id=1
 
--- Insert data into the action_object table to represent the action of orienting
--- Connect antenna orienting towards Earth
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (3, 4, 6);
 
--- Insert data into the action_object table to represent the action of sending signals
--- Connect antenna sending signals
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (4, 4, 7);
+-- Вставка 10 записей в таблицу "person"
+INSERT INTO person (name, profession)
+VALUES ('Иванов', 'scientist'),
+       ('Петров', 'researcher'),
+       ('Сидоров', 'pilot'),
+       ('Козлов', 'scientist'),
+       ('Смирнов', 'researcher'),
+       ('Васильев', 'pilot'),
+       ('Попов', 'scientist'),
+       ('Лебедев', 'researcher'),
+       ('Николаев', 'pilot'),
+       ('Ильин', 'scientist');
 
--- Insert data into the action_object table to represent the action of receiving signals
--- Connect antenna receiving signals
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (5, 4, 7);
+-- Вставка 10 записей в таблицу "remote_control"
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
+INSERT INTO remote_control DEFAULT
+VALUES;
 
--- Insert data into the action_object table to represent the action of traveling
--- Connect signals traveling through space
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (6, 7, NULL);
+-- Вставка 10 записей в таблицу "screen"
+INSERT INTO screen (connected_remote_control)
+VALUES (1),
+       (2),
+       (3),
+       (4),
+       (5),
+       (6),
+       (7),
+       (8),
+       (9),
+       (10);
 
--- Insert data into the action_object table to represent the action of potentially receiving
--- Connect signals potentially received by Earth
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (7, 1, 7);
+-- Вставка 10 записей в таблицу "person_watches_screen"
+INSERT INTO person_watches_screen (watching_person_id, screen_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3),
+       (4, 4),
+       (5, 5),
+       (6, 6),
+       (7, 7),
+       (8, 8),
+       (9, 9),
+       (10, 10);
 
--- Insert data into the action_object table to represent the action of non-reception
--- Connect signals not received by Earth
-INSERT INTO s341474.action_object (action_id, subject_id, object_id)
-VALUES (8, NULL, 7);
+-- Вставка 10 записей в таблицу "television_camera"
+INSERT INTO television_camera (text_description)
+VALUES ('Камера 1'),
+       ('Камера 2'),
+       ('Камера 3'),
+       ('Камера 4'),
+       ('Камера 5'),
+       ('Камера 6'),
+       ('Камера 7'),
+       ('Камера 8'),
+       ('Камера 9'),
+       ('Камера 10');
+
+-- Вставка 10 записей в таблицу "planet"
+INSERT INTO planet (name, is_populated)
+VALUES ('Меркурий', false),
+       ('Венера', false),
+       ('Марс', false),
+       ('Юпитер', false),
+       ('Сатурн', false),
+       ('Уран', false),
+       ('Нептун', false),
+       ('Плутон', false),
+       ('Земля', true),
+       ('Луна', false);
+
+-- Вставка 10 записей в таблицу "antenna"
+INSERT INTO antenna (antenna_type, size)
+VALUES ('параболическая', 'big'),
+       ('плоская', 'medium'),
+       ('параболическая', 'big'),
+       ('плоская', 'medium'),
+       ('параболическая', 'big'),
+       ('плоская', 'medium'),
+       ('параболическая', 'big'),
+       ('плоская', 'medium'),
+       ('параболическая', 'big'),
+       ('плоская', 'medium');
+
+-- Вставка 10 записей в таблицу "signal"
+INSERT INTO signal (signal_text, is_received, directed_to_planet, sent_via_antenna)
+VALUES ('Сигнал 1', true, 1, 1),
+       ('Сигнал 2', true, 2, 2),
+       ('Сигнал 3', true, 3, 3),
+       ('Сигнал 4', true, 4, 4),
+       ('Сигнал 5', true, 5, 5),
+       ('Сигнал 6', true, 6, 6),
+       ('Сигнал 7', true, 7, 7),
+       ('Сигнал 8', true, 8, 8),
+       ('Сигнал 9', true, 9, 9),
+       ('Сигнал 10', true, 10, 10);
+
+-- Вставка 10 записей в таблицу "sending_signal_to_antenna"
+INSERT INTO sending_signal_to_antenna (with_signal_id, via_antenna_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3),
+       (4, 4),
+       (5, 5),
+       (6, 6),
+       (7, 7),
+       (8, 8),
+       (9, 9),
+       (10, 10);
+
+-- Вставка 10 записей в таблицу "show_on_screen_from_antenna"
+INSERT INTO show_on_screen_from_antenna (to_screen_id, from_antenna_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3),
+       (4, 4),
+       (5, 5),
+       (6, 6),
+       (7, 7),
+       (8, 8),
+       (9, 9),
+       (10, 10);
