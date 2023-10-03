@@ -6,13 +6,12 @@ DROP TABLE IF EXISTS antenna cascade;
 DROP TABLE IF EXISTS remote_control CASCADE;
 DROP TABLE IF EXISTS screen cascade;
 DROP TABLE IF EXISTS person cascade;
-DROP table if exists sending_signal_to_antenna;
-DROP type if exists antenna_type;
-DROP table if exists show_on_screen_from_antenna;
-DROP table if exists person_watches_screen;
-
+DROP TABLE IF EXISTS sending_signal_to_antenna;
+DROP TABLE IF EXISTS show_on_screen_from_antenna;
+DROP TABLE IF EXISTS person_watches_screen;
 
 -- Drop the ENUM types if they exist
+DROP TYPE IF EXISTS antenna_type;
 DROP TYPE IF EXISTS antenna_size;
 DROP TYPE IF EXISTS profession_type;
 
