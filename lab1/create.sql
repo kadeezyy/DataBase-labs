@@ -84,8 +84,8 @@ create table signal
 create table sending_signal_to_antenna
 (
     id             serial primary key,
-    with_signal_id int references signal (id),
-    via_antenna_id int references antenna (id)
+    signal_id int references signal (id),
+    antenna_id int references antenna (id)
 );
 
 create table show_on_screen_from_antenna

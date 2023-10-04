@@ -38,7 +38,7 @@ VALUES ('Пример сигнала 1', false, 1, 1), -- Предположим
 -- Предположим, что сигнал успешно принят с антенны с id=1
 
 -- Вставка данных в таблицу "sending_signal_to_antenna"
-INSERT INTO sending_signal_to_antenna (with_signal_id, via_antenna_id)
+INSERT INTO sending_signal_to_antenna (signal_id, antenna_id)
 VALUES (1, 1), -- Связываем сигнал с id=1 с антенной с id=1
        (2, 1);
 -- Связываем сигнал с id=2 с антенной с id=1
@@ -163,7 +163,7 @@ VALUES ('Сигнал 1', true, 1, 1),
        ('Сигнал 10', true, 10, 10);
 
 -- Вставка 10 записей в таблицу "sending_signal_to_antenna"
-INSERT INTO sending_signal_to_antenna (with_signal_id, via_antenna_id)
+INSERT INTO sending_signal_to_antenna (signal_id, antenna_id)
 VALUES (1, 1),
        (2, 2),
        (3, 3),
