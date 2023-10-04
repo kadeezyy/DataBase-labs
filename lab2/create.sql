@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS person_watches_screen CASCADE;
 DROP TABLE IF EXISTS signal_to_antenna CASCADE;
 DROP TABLE IF EXISTS signal_to_screen CASCADE;
 
--- Drop the ENUM types if they exist
+-- Drop the ENUM types if they exis
 DROP TYPE IF EXISTS antenna_type;
 DROP TYPE IF EXISTS antenna_size;
 DROP TYPE IF EXISTS profession_type;
