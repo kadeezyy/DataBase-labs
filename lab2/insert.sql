@@ -1,44 +1,61 @@
--- Вставка данных в таблицу "person"
-INSERT INTO person (name, profession)
-VALUES ('Боумен', 'scientist'),
-       ('Пул', 'scientist');
+-- Insert data into the planet table
+INSERT INTO planet (name)
+VALUES
+    ('Mars'),
+    ('Earth'),
+    ('Venus');
 
+-- Insert data into the planet_populated table
+INSERT INTO planet_populated (name, is_populated)
+VALUES
+    ('Earth', true),
+    ('Mars', false);
 
--- Вставка данных в таблицу "remote_control"
-INSERT INTO remote_control
-    DEFAULT VALUES;
+-- Insert data into the remote_control table
+INSERT INTO remote_control DEFAULT VALUES;
 
--- Вставка данных в таблицу "screen"
+-- Insert data into the screen table
 INSERT INTO screen (connected_remote_control)
 VALUES (1);
 
--- Вставка данных в таблицу "person_watches_screen"
-INSERT INTO person_watches_screen (watching_person_id, screen_id)
-VALUES (1, 1);
+-- Insert data into the person table
+INSERT INTO person (name, profession)
+VALUES
+    ('John Doe', 'scientist'),
+    ('Alice Smith', 'researcher');
 
--- Вставка данных в таблицу "television_camera"
+-- Insert data into the television_camera table
 INSERT INTO television_camera (text_description)
-VALUES ('Длиннофокусная телевизионная камера на антенне');
+VALUES
+    ('High-resolution camera for remote viewing'),
+    ('Wide-angle camera for monitoring');
 
--- Вставка данных в таблицу "planet"
-INSERT INTO planet (name, is_populated)
-VALUES ('Земля', true),
-       ('Марс', false);
-
--- Вставка данных в таблицу "antenna"
+-- Insert data into the antenna table
 INSERT INTO antenna (antenna_type, size)
-VALUES ('параболическая', 'big');
+VALUES
+    ('Parabolic', 'big'),
+    ('Dipole', 'medium');
 
--- Вставка данных в таблицу "signal"
-INSERT INTO signal (signal_text, is_received, directed_to_planet, sent_via_antenna)
-VALUES ('Пример сигнала 1', false, 1, 1),
-       ('Пример сигнала 2', true, 2, 1);
+-- Insert data into the signal table
+INSERT INTO signal (signal_text, is_received)
+VALUES
+    ('Activate security system', false),
+    ('Open the door', true);
 
--- Вставка данных в таблицу "sending_signal_to_antenna"
-INSERT INTO sending_signal_to_antenna (signal_id, antenna_id)
-VALUES (1, 1),
-       (2, 1);
+-- Insert data into the signal_direction table
+INSERT INTO signal_direction (signal_id, directed_to_planet_id)
+VALUES
+    (1, 2),
+    (2, 3);
 
--- Вставка данных в таблицу "show_on_screen_from_antenna"
-INSERT INTO show_on_screen_from_antenna (to_screen_id, from_antenna_id)
-VALUES (1, 1);
+-- Insert data into the signal_to_antenna table
+INSERT INTO signal_to_antenna (signal_id, antenna_id)
+VALUES
+    (1, 1),
+    (2, 2);
+
+-- Insert data into the signal_to_screen table
+INSERT INTO signal_to_screen (screen_id, antenna_id)
+VALUES
+    (1, 1),
+    (1, 2);
